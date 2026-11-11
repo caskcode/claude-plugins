@@ -1,0 +1,14 @@
+{
+    "name": "caskcode",
+    "owner": {
+        "name": "CaskCode"
+    },
+    "description": "Claude Code plugins from CaskCode.",
+    "plugins": [
+        {
+            "name": "living-context",
+            "source": "./living-context",
+            "description": "The team's recorded decisions, gotchas, workarounds, assumptions and open questions for the Jira work item you're on, in context before Claude answers."
+        }
+    ]
+}

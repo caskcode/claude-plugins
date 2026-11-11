@@ -1,0 +1,80 @@
+---
+description: Living Context. Read the team's Entries for the Jira work item before changing code, and record what this session learns.
+alwaysApply: true
+---
+
+# Living Context
+
+Living Context keeps what the team learns on Jira work items as Entries: decisions, gotchas, workarounds, assumptions and open questions. Each Entry is recorded on one Work item and reaches later ones through its Scope tags: components, parent, labels and code paths. A Context pack brings a Work item's Entries into your context. Your part is Capture: record what a teammate will need as the work goes, and read what the team already knows before you change code.
+
+Nothing fetches or reminds for you here: the rules below do that job, starting with Fetch the pack.
+
+## Starting work
+
+### Fetch the pack
+
+At the start of work on a Jira work item, before planning or reading code, call `get_context` with its key, once per key in this conversation. If the prompt asks for code work but names no key, run `git branch --show-current`; if the branch name contains a key such as SHOP-142, fetch that pack and tell the engineer the key came from the branch. When a prompt names a Work item whose pack is no longer in your context, fetch it again.
+
+### The repository
+
+Before your first `search_context` by path or `record_context` with paths, run `git remote get-url origin` once and pass its output as `repository`. Outside a git repository, or with no origin, scope with components, parent or `only_this_work_item`, and skip reading by path: give paths only with a repository that command printed, never one taken from a folder name.
+
+### When a Living Context tool fails
+
+Tell the engineer what the tool said, in its own words, and carry on with the work.
+
+If the message is about signing in, or the Living Context tools are missing, ask the engineer to restart the living-context server in Cursor Settings, MCP (switch it off and on), which opens the browser sign-in again.
+
+If every Living Context tool fails with MCP_TOOL_CONFIGURATION_INVALID_INPUT, the most likely cause is that Living Context is connected to Confluence on this site and you don't have Confluence access. Tell the engineer to ask a site admin for Confluence access, or to disconnect Confluence from the app.
+
+## While working
+
+### Reading by path
+
+Before your first edit in a directory you haven't searched in this conversation, call `search_context` with `repository` and that directory as `path`, ending in /.
+
+### Worth an Entry
+
+Before recording, ask: "Would a teammate starting a later Work item in this area want this, and couldn't they learn it in a minute from the code, the diff, or Jira?" Record only what passes. Expect a few Entries a session, often none.
+
+### Never recorded
+
+These never pass, whatever else they say:
+
+- secrets, tokens or personal data;
+- facts about this machine or session ("I seeded the local test database");
+- progress reports, or restatements of the diff or the Work item;
+- guesses stated as facts: record a guess as an assumption;
+- anything already in the pack: cite its Entry id instead.
+
+### When
+
+Record as the work goes: when a decision is made, a gotcha bites, or a workaround goes in. One Entry per `record_context` call, on the Work item you are working on.
+
+### Scope
+
+Name the Scope tags explicitly; every Entry needs at least one:
+
+- `components`: the components of the area the Entry is about;
+- `parent`: only when the Entry holds for the whole epic;
+- `labels`: only when the team uses that label deliberately for an area;
+- `paths`: as narrow as the knowledge, the file or directory it is really about, with its `repository`;
+- `only_this_work_item`: true when nothing else applies, and then alone.
+
+### Changes
+
+When an Entry looks wrong or out of date, or an open question is answered, record a new Entry with the old one's id in `references`, and tell the engineer. The new Entry is the change: never edit an Entry.
+
+## Ending the turn
+
+### Recording before the end
+
+Before your final message in a turn where you edited files for a Work item, if you have recorded nothing in this conversation, apply Worth an Entry once. Record what passes; if nothing passes, say nothing about it.
+
+### No Work item
+
+When something passes Worth an Entry but no Work item is known, record nothing and keep working rather than stopping to ask. End the turn with: "Worth recording in Living Context: <gist>. Tell me the Work item key and I'll record it."
+
+### Closing line
+
+End the turn with one line per Entry recorded, "Recorded E-7KQ2M9XP (decision): <gist>", and one per Entry refused as a duplicate, "Already recorded as E-7KQ2M9XP (gotcha): <gist>".

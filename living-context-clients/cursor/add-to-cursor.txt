@@ -1,0 +1,1 @@
+cursor://anysphere.cursor-deeplink/mcp/install?name=living-context&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIm1jcC1yZW1vdGVAMC4xNi41IiwiaHR0cHM6Ly9tY3AuYXRsYXNzaWFuLmNvbS9mb3JnZS9lN2FmYWFhNC01NTJiLTQ1NTgtOTk5OS0yOTQyZTM3MDUxZWMiXX0%3D

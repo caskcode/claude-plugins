@@ -1,0 +1,60 @@
+{
+    "description": "Living Context: put the Context pack for the Jira Work item a prompt names in context before the model answers; point the agent at the repository, the Work item and the Entries where it edits; ask once at the end to record what the session learned. No hook records anything.",
+    "hooks": {
+        "UserPromptSubmit": [
+            {
+                "hooks": [
+                    {
+                        "type": "mcp_tool",
+                        "server": "plugin:living-context:living-context",
+                        "tool": "get_context",
+                        "input": {
+                            "work_item": "${prompt}",
+                            "hook_event": "UserPromptSubmit",
+                            "session": "${session_id}"
+                        },
+                        "timeout": 12
+                    },
+                    {
+                        "type": "command",
+                        "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/prompt-keys.sh\"",
+                        "timeout": 10
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/edit-nudge.sh\"",
+                        "timeout": 10
+                    }
+                ]
+            },
+            {
+                "matcher": "^mcp__plugin_living-context_living-context__record_context.*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/recorded.sh\"",
+                        "timeout": 10
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/stop-net.sh\"",
+                        "timeout": 10
+                    }
+                ]
+            }
+        ]
+    }
+}

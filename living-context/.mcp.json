@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+        "living-context": {
+            "type": "http",
+            "url": "https://mcp.atlassian.com/forge/e7afaaa4-552b-4558-9999-2942e37051ec"
+        }
+    }
+}

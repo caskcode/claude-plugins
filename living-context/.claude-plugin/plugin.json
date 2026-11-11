@@ -1,0 +1,9 @@
+{
+    "name": "living-context",
+    "displayName": "Living Context",
+    "description": "The team's recorded decisions, gotchas, workarounds, assumptions and open questions for the Jira work item you're on, in context before Claude answers.",
+    "author": {
+        "name": "CaskCode"
+    },
+    "keywords": ["jira", "context", "atlassian", "forge"]
+}
