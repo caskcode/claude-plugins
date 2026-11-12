@@ -47,6 +47,10 @@ These never pass, whatever else they say:
 
 Record as the work goes: when a decision is made, a gotcha bites, or a workaround goes in. One Entry per `record_context` call, on the Work item you are working on.
 
+### The Client
+
+Set `client` to Claude Code on every `record_context` call, so the Entry shows where it was recorded. The plugin sets it too, except in auto mode.
+
 ### Scope
 
 Name the Scope tags explicitly; every Entry needs at least one:
@@ -54,10 +58,10 @@ Name the Scope tags explicitly; every Entry needs at least one:
 - `components`: the components of the area the Entry is about;
 - `parent`: only when the Entry holds for the whole epic;
 - `labels`: only when the team uses that label deliberately for an area;
-- `paths`: as narrow as the knowledge, the file or directory it is really about, with its `repository`;
+- `paths`: as narrow as the knowledge, the file or directory it is really about, each written as its repository, a colon, and the path from the repository root, such as caskcode/fernhill-shop-demo:services/payments/;
 - `only_this_work_item`: true when nothing else applies, and then alone.
 
-For `repository`, use the one the Living Context hook line named; when no hook line named one, give no paths and skip reading by path.
+For the repository, in `paths` and as `search_context`'s `repository`, use the one the Living Context hook line named; when no hook line named one, give no paths and skip reading by path.
 
 ### Changes
 

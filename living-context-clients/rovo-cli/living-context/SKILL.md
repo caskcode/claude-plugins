@@ -17,7 +17,7 @@ At the start of work on a Jira work item, before planning or reading code, call 
 
 ### The repository
 
-Before your first `search_context` by path or `record_context` with paths, run `git remote get-url origin` once and pass its output as `repository`. Outside a git repository, or with no origin, scope with components, parent or `only_this_work_item`, and skip reading by path: give paths only with a repository that command printed, never one taken from a folder name.
+Before your first `search_context` by path or `record_context` with paths, run `git remote get-url origin` once. Pass its output as `search_context`'s `repository`, and write it before each of `record_context`'s `paths` with a colon. Outside a git repository, or with no origin, scope with components, parent or `only_this_work_item`, and skip reading by path: give paths only with a repository that command printed, never one taken from a folder name.
 
 ### When a Living Context tool fails
 
@@ -58,7 +58,7 @@ Name the Scope tags explicitly; every Entry needs at least one:
 - `components`: the components of the area the Entry is about;
 - `parent`: only when the Entry holds for the whole epic;
 - `labels`: only when the team uses that label deliberately for an area;
-- `paths`: as narrow as the knowledge, the file or directory it is really about, with its `repository`;
+- `paths`: as narrow as the knowledge, the file or directory it is really about, each written as its repository, a colon, and the path from the repository root, such as caskcode/fernhill-shop-demo:services/payments/;
 - `only_this_work_item`: true when nothing else applies, and then alone.
 
 ### Changes

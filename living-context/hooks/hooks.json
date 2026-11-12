@@ -1,5 +1,5 @@
 {
-    "description": "Living Context: put the Context pack for the Jira Work item a prompt names in context before the model answers; point the agent at the repository, the Work item and the Entries where it edits; ask once at the end to record what the session learned. No hook records anything.",
+    "description": "Living Context: put the Context pack for the Jira Work item a prompt names in context before the model answers; point the agent at the repository, the Work item and the Entries where it edits; name Claude Code as the Client on each record_context call; ask once at the end to record what the session learned. No hook records anything.",
     "hooks": {
         "UserPromptSubmit": [
             {
@@ -18,6 +18,18 @@
                     {
                         "type": "command",
                         "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/prompt-keys.sh\"",
+                        "timeout": 10
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "^mcp__plugin_living-context_living-context__record_context.*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/client-name.sh\"",
                         "timeout": 10
                     }
                 ]
